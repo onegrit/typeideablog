@@ -29,7 +29,7 @@ class Tag(models.Model):
     )
     name = models.CharField(max_length=50, verbose_name="名称")
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name="状态")
-    owner = models.ForeignKey(User, verbose_name='作者')
+    owner = models.ForeignKey(User, verbose_name='作者',on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
     class Meta:
@@ -50,9 +50,9 @@ class Post(models.Model):
     desc = models.CharField(max_length=1024, blank=True, verbose_name="摘要")
     content = models.TextField(verbose_name="正文", help_text="正文可以为Markdown格式")
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name="状态")
-    category = models.ForeignKey(Category, verbose_name='分类')
-    tag = models.ForeignKey(Tag, verbose_name='标签')
-    owner = models.ForeignKey(User, verbose_name='作者')
+    category = models.ForeignKey(Category, verbose_name='分类',on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, verbose_name='标签',on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, verbose_name='作者',on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
     class Meta:
@@ -73,7 +73,7 @@ class Link(models.Model):
     weight = models.PositiveIntegerField(default=1, choices=zip(range(1, 6), range(1, 6)), verbose_name="权重",
                                          help_text="权重高展示顺序靠前")
 
-    owner = models.ForeignKey(User, verbose_name='作者')
+    owner = models.ForeignKey(User, verbose_name='作者',on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
     class Meta:
@@ -97,7 +97,7 @@ class SideBar(models.Model):
     display_type = models.PositiveIntegerField(default=1, choices=SIDE_TYPE, verbose_name="展示类型")
     content = models.CharField(max_length=500, blank=True, verbose_name="内容", help_text="如果显示类型不是HTML，可为空")
     status = models.PositiveIntegerField(default=STATUS_SHOW, choices=STATUS_ITEMS, verbose_name="状态")
-    owner = models.ForeignKey(User, verbose_name='作者')
+    owner = models.ForeignKey(User, verbose_name='作者',on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
     class Meta:
