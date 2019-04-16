@@ -1,2 +1,5 @@
 .idea/
 blog/blog/__pycache__/
+*.pyc
+*.swp
+*.sqlite3
